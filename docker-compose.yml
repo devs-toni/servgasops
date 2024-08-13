@@ -32,6 +32,10 @@ services:
       - net
     depends_on: 
       - database
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=Host(`gastos.api.local`)"
+      - "traefik.http.services.backend.loadbalancer.server.port=$SERVER_HOST_PORT" 
 
   frontend:
     container_name: gastos-client
@@ -44,6 +48,10 @@ services:
     stdin_open: true
     networks:
       - net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`gastos.local`)"
+      - "traefik.http.services.frontend.loadbalancer.server.port=$CLIENT_HOST_PORT" 
 
 volumes:
   data:
