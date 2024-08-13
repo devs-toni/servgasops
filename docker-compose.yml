@@ -16,7 +16,7 @@ services:
     networks:
       - net
       
-  backend:
+  expenditures_backend:
     container_name: gastos-api
     restart: unless-stopped
     image: devstoni/gastos-api:0.12.0
@@ -34,10 +34,10 @@ services:
       - database
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=Host(`gastos.api.local`)"
-      - "traefik.http.services.backend.loadbalancer.server.port=$SERVER_HOST_PORT" 
+      - "traefik.http.routers.expenditures_backend.rule=Host(`gastos.api.local`)"
+      - "traefik.http.services.expenditures_backend.loadbalancer.server.port=$SERVER_HOST_PORT" 
 
-  frontend:
+  expenditures_frontend:
     container_name: gastos-client
     image: devstoni/gastos-front:0.1.8
     restart: unless-stopped
@@ -50,8 +50,8 @@ services:
       - net
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`gastos.local`)"
-      - "traefik.http.services.frontend.loadbalancer.server.port=$CLIENT_HOST_PORT" 
+      - "traefik.http.routers.expenditures_frontend.rule=Host(`gastos.local`)"
+      - "traefik.http.services.expenditures_frontend.loadbalancer.server.port=$CLIENT_HOST_PORT" 
 
 volumes:
   data:
